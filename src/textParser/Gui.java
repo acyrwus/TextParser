@@ -172,12 +172,11 @@ public class Gui {
 					
 					//This is the line where the string is parsed
 					
-					String parsedText = "";
 					
-					//String parsedText = parser.parse("", strToParse);
 					
-					wrap w = new wrap(strToParse, 20);
-					parsedText = w.wrapText();
+					String parsedText = parser.parse("", strToParse);
+					
+				
 					
 					//System.out.println(parsedText);
 					
