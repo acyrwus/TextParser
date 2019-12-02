@@ -11,6 +11,17 @@ public class Parser {
 	public char op;
 	public char start;
 	public String count;
+	private String outputString;
+	
+	private align a;
+	private blank b;
+	private center cr;
+	private columns cl;
+	private indent id;
+	private left lt;
+	private length lh;
+	private right rt;
+	private title tl;
 
 	public Parser() {
 		x = 0;
@@ -18,6 +29,8 @@ public class Parser {
 		op = ' ';
 		start = ' ';
 		count = " ";
+		outputString = "";
+		
 	}
 	
 	/* !!!IMPORTANT!!!

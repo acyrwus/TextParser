@@ -164,15 +164,22 @@ public class Gui {
 					
 					//Copy Text from .txt
 					while ((text = in.readLine()) != null) {
-						strToParse += text;
+						strToParse += text + "\n";
 	                    //txt.append(text);
 	                    //txt.append("\n");
 	                }
 					
+					
 					//This is the line where the string is parsed
 					
-					String parsedText = parser.parse("", strToParse);
+					String parsedText = "";
 					
+					//String parsedText = parser.parse("", strToParse);
+					
+					wrap w = new wrap(strToParse, 20);
+					parsedText = w.wrapText();
+					
+					//System.out.println(parsedText);
 					
 					//Set the formattedText box to the parsed Text
 					txt.setText(parsedText);

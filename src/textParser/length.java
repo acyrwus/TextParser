@@ -11,7 +11,7 @@ public class length
 		lineLength = inLineLength;
 	}
 	
-	public void changeLineLength()
+	public String changeLineLength()
 	{	
 		
 		
@@ -38,6 +38,7 @@ public class length
 				end += lineLength;
 			}
 		}
+		return toFormat;
 		
 	}
 }
