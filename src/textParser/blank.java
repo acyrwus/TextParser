@@ -10,8 +10,8 @@ public class blank {
 	public String blankStr() {
 		String out = "";
 		
-		for(int i = 0; i < num; num++) {
-			out = out.concat("\n");
+		for(int i = 0; i < num; i++) {
+			out += "\n";
 		}
 		
 		return out;

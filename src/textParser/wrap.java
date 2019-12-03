@@ -44,7 +44,7 @@ public class wrap {
 			}
 		}
 		text = stb.toString();
-		System.out.println("\n\n" + text);
+		//System.out.println("\n\n" + text);
 		
 		//text = text.replaceAll("(.{"+lineMax+"})", "$1\n");
 

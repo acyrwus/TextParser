@@ -52,6 +52,7 @@ public class Gui {
 		JScrollPane errorSP = new JScrollPane(errors);
 		
 		
+		
 		//Setup Gui with text alignment and borders 
 		txt.setBorder(BorderFactory.createBevelBorder(1));
 		txt.setAlignmentY(JTextField.LEADING);
@@ -174,10 +175,11 @@ public class Gui {
 					
 					
 					
-					String parsedText = parser.parse("", strToParse);
+					String parsedText = parser.parse(strToParse);
 					
-				
+					String errorsMSG = parser.get_errors();
 					
+					errors.setText(errorsMSG);
 					//System.out.println(parsedText);
 					
 					//Set the formattedText box to the parsed Text
