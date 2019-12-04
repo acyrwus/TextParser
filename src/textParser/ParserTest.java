@@ -13,8 +13,7 @@ class ParserTest {
 		//System.out.println(r.rightOut());
 		
 		Parser parser = new Parser();
-		System.out.println("FINAL OUTPUT\n" +parser.parse("Test"+System.lineSeparator() + "-w+" + System.lineSeparator() + "-b3" + System.lineSeparator() + "Text Text Text" + System.lineSeparator() + "Text" + System.lineSeparator() + "Text"));
+		System.out.println("FINAL OUTPUT\n" +parser.parse("Test test" + System.lineSeparator() + "Test2 test2" + System.lineSeparator() + "Text3 Text3 Text3" + System.lineSeparator() +"-p4"+ System.lineSeparator() +  "Text4 Text4 Text4 Text4 Text4" + System.lineSeparator() + "Text5 text5"));
 
 	}
-
 }

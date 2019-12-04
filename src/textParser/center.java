@@ -8,16 +8,13 @@ public class center extends align {
 	
 	public String centerOut() { //builds output lines
 		
-		int lineC = this.lineLen(text);
 		String buildStr = "";
 		
-		for (int i = 0; i < lineC; i++) {
-			String temp = this.splitStr(i, text); //get singular line
+		for(String temp : this.splitLines(text)) {
 			String buildLine = "";
-			
 			for (String word : this.splitWord(temp)) { //build string with words
-				buildLine = buildLine.concat(word);
-				buildLine = buildLine.concat(" ");
+				buildLine = buildLine + "" + word + " ";
+				
 			}
 			
 			int charC = buildLine.length();
@@ -29,6 +26,7 @@ public class center extends align {
 			
 			buildLine = spaceStr.concat(buildLine); //concat spaces to string
 			
+			buildLine = buildLine.concat("\n");
 			if (space) //if double spaced 
 				buildLine = buildLine.concat("\n");
 			

@@ -70,16 +70,18 @@ public class Parser {
 		
 		char cmd = 'z';
 		char additional = 'z';
+		char additional2 = 'z';
 
 		String originalText = listToString(textList);
 		
-		String txtToParse = listToString(textList);
+		String txtToParse = text;
 		
 		int lineNum = 0;
 		
 
 		//Line Counter
 		int numberOfLines = 0;
+		int firstLineIndex = 0;
 		
 		for(int currentCommand = 0; currentCommand < commandList.size(); currentCommand++) {
 			String ccs = commandList.get(currentCommand);
@@ -87,6 +89,7 @@ public class Parser {
 			cmd = commandList.get(currentCommand).charAt(1);
 			if(commandList.get(currentCommand).length() > 2) {
 				additional = commandList.get(currentCommand).charAt(2);
+				additional2 = commandList.get(currentCommand).charAt(3);
 				System.out.println(ccs);
 				lineNum = Character.getNumericValue(ccs.charAt(ccs.length()-1));
 			}
@@ -95,9 +98,12 @@ public class Parser {
 			for(int i = 0; i < originalText.length(); i++) {
 				if (originalText.charAt(i) == '\n') {
 					numberOfLines++;
+					if(numberOfLines == 1) {
+						firstLineIndex = i+1;
+					}
 				}
 				if(numberOfLines == lineNum) {
-					txtToParse = originalText.substring(i+1, originalText.length()-1);
+					txtToParse = originalText.substring(i+1, originalText.length());
 					break;
 				}
 			}
@@ -112,12 +118,46 @@ public class Parser {
 			switch (cmd) {
 				case 'n':
 					
-					align a = new align(txtToParse, lineLength, inspace);
+					int count = 80;
+					if(Character.isDigit(additional2)) {
+						String numberString = new StringBuilder().append(additional).append(additional2).toString();
+						count = Integer.parseInt(numberString);
+					} else {
+						count = Character.getNumericValue(additional);
+					}
+						
 					
-					int count = additional - 0;
 					
-					if (count <= 100) {
-						txtToParse = a.splitStr(count, displayText);
+					//Find Necessary Iterations
+					
+					int charPerLineCounter = 0;
+					StringBuilder stb = new StringBuilder(txtToParse);
+					System.out.println("TEXT: " + stb.toString());
+					
+					lineLength = count;
+					
+					if(count < 100) {
+						System.out.println("OUT");
+						for(int i = 0; i < txtToParse.length(); i++) {
+							if(txtToParse.charAt(i) == '\n') {
+								charPerLineCounter = 0;
+							} else {
+								charPerLineCounter++;
+							}
+							if(charPerLineCounter >= count) {
+								charPerLineCounter = 0;
+								int j = i;
+								while(stb.charAt(j) != ' ') {
+									j--;
+								}
+								System.out.println("OUT");
+								stb.setCharAt(j, '\n');
+									
+							}
+						}
+						txtToParse = stb.toString();
+					
+					
 					} else if (x > 100) {
 						errors += "Error: number of character per line should exceed 100\n";
 						System.out.println("Error: number of character per line should exceed 100");
@@ -126,7 +166,7 @@ public class Parser {
 		
 				case 'r':
 					right r = new right(txtToParse, lineLength, inspace);
-					txtToParse = r.rightOut();
+				 	txtToParse = r.rightOut();
 					break;
 		
 				case 'l':
@@ -167,16 +207,26 @@ public class Parser {
 					break;
 		
 				case 't':
-					stringToList(tempList,txtToParse, lineLength);
-					String title = tempList.get(0);
-					title t = new title(title, lineLength);
+					//Get First Line
 					
-					tempList.set(0,t.titleOut());
-					txtToParse = listToString(tempList);
+					
+					String line = txtToParse.substring(0,firstLineIndex);
+					
+					System.out.println("FIRST LINE----\n" + line);
+					title t = new title(txtToParse, lineLength);
+					
+					String newLine = t.titleOut();
+					txtToParse = newLine + txtToParse.substring(firstLineIndex*3, txtToParse.length());
 					break;
 		
 				case 'p':
 					//x = Integer.parseInt(count);
+					int indents = Character.getNumericValue(additional);
+					indent para = new indent(txtToParse, indents);
+					
+					String pgraph = para.addsIndent();
+					
+					txtToParse = pgraph;
 					
 					break;
 		
@@ -215,6 +265,7 @@ public class Parser {
 				
 			}
 			
+			System.out.println("POST TEXT PARSE----\n" + txtToParse + "\n------");
 			
 			//Attach onto originalText and loop back up for new command
 			numberOfLines=0;
@@ -234,7 +285,7 @@ public class Parser {
 			
 			numberOfLines = 0;
 			
-			System.out.println("ORIG: " + originalText);
+			System.out.println("POST TEXT PARSE MERGED WITH ORIG:---------\n" + originalText + "\n---------");
 			
 			//printList(textList);
 			
@@ -300,6 +351,9 @@ public class Parser {
 	
 
 	public boolean isCommand(String str) {
+		if(str.length() == 0)
+			return false;
+		
 		if(str.charAt(0) == '-')
 			if(commandList.indexOf(str.charAt(1)) != -1)
 				return true;
@@ -309,16 +363,23 @@ public class Parser {
 	}
 	
 	public void buildCommandAndTextList(ArrayList<String> original, ArrayList<String> cmdList, ArrayList<String> textList) {
+		String previousLine = "";
 		for(int i = 0; i < original.size(); i++) {
+			
 			String currentLine = original.get(i);
 			
 			if(isCommand(currentLine)) {
-				cmdList.add(currentLine + " : " + i);
+				if(isCommand(previousLine))
+					cmdList.add(currentLine + " : " + (i-1));
+				else
+					cmdList.add(currentLine + " : " + (i));
+				
 				//textList.add("");
 			} else {
 				textList.add(currentLine);
 				//cmdList.add("");
 			}
+			previousLine = currentLine; 
 			
 		}
 	}

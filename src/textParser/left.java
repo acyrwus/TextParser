@@ -9,16 +9,15 @@ public class left extends align {
 	
 	public String leftOut() { //builds output lines
 		
-		int lineC = this.lineLen(text);
+		
 		String buildStr = "";
 		
-		for (int i = 0; i < lineC; i++) {
-			String temp = this.splitStr(i, text); //get singular line
-			
+		for(String temp : this.splitLines(text)) {
 			for (String word : this.splitWord(temp)) { //build string with words
-				buildStr = buildStr.concat(word);
-				buildStr = buildStr.concat(" ");
+				buildStr = buildStr + "" + word + " ";
+				
 			}
+			buildStr = buildStr.concat("\n");
 			if (space) //if double spaced 
 				buildStr = buildStr.concat("\n");
 		}

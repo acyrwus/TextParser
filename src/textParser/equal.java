@@ -7,27 +7,36 @@ public class equal extends align {
 	}
 	
 	public String equalOut() { //builds output lines
-		
-		int lineC = this.lineLen(text);
+			
 		String buildStr = "";
 		
-		for (int i = 0; i < lineC; i++) {
-			String temp = this.splitStr(i, text); //get singular line
+		for(String temp : this.splitLines(text)) {
 			String buildLine = "";
 			
 			int charDiff = lineMax - temp.length();
 			
 			String[] words = this.splitWord(temp);
+			int wordsNum = words.length;
 			
-			int spaceVal = charDiff/(words.length); //calculate correct number of spaces
+			double spaceVal = charDiff/(wordsNum-1) + 2; //calculate correct number of spaces
+			spaceVal = Math.ceil(spaceVal);
 			
+			buildLine = buildLine + words[0];
 			
-			for (String word : words) { //build string with words
-				buildLine = buildLine.concat(word);
+			for (int i = 1; i < wordsNum; i++) {
 				for (int j = 0; j < spaceVal; j++)
 					buildLine = buildLine.concat(" ");
+				buildLine = buildLine + "" + words[i];
 			}
 			
+			/*for (String word : words) { //build string with words
+				buildLine = buildLine + "" + word;
+				for (int j = 0; j < spaceVal; j++)
+					buildLine = buildLine.concat(" ");
+			}*/
+			
+			
+			buildLine = buildLine.concat("\n");
 			if (space) //if double spaced 
 				buildLine = buildLine.concat("\n");
 			

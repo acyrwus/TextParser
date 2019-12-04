@@ -17,10 +17,10 @@ public class indent
 		
 		for (int i = 0; i < spaces; i++)
 		{
-			out.concat(" ");
+			out = out.concat(" ");
 		}
 		
-		out.concat(text);
+		out = out.concat(text);
 		
 		return out;
 	}

@@ -44,9 +44,22 @@ public class align {
 	}
 	
 	protected String[] splitWord(String inStr) {
-		String[] arr = inStr.split(" ");
+		//if(inStr.contains(" ")) {
+			String[] arr = inStr.split("\\s+");
+			/*for (String word : arr)
+				System.out.print(word);*/
+			return arr;
+		//}
+		//else {
+		//	String[] arr = {inStr};
+		//	//arr[0] = inStr;
+		//	return arr;
+		//}
+	}
+	protected String[] splitLines(String inStr) {
+		String[] arr = inStr.split("\\r?\\n");
 		return arr;
 	}
-	
+
 
 }
